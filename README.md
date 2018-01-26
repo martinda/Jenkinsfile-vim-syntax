@@ -1,7 +1,7 @@
 # Jenkinsfile-vim-syntax
 A plugin that enables Jenkins DSL job syntax coloring + identation.
 
-## Unde the hood
+## Under the hood
 Simply recognises your project's `Jenkinsfile` as a
 [Groovy](http://groovy-lang.org/) script. See [this Jenkins
 documentation](https://jenkins.io/doc/book/pipeline/jenkinsfile/) for details.
@@ -13,7 +13,8 @@ this repo:
 
 ```bash
 cd ~/.vim/bundle/
-git clone https://github.com/thanethomson/vim-jenkinsfile
+git clone git@github.com:martinda/Jenkinsfile-vim-syntax.git
 ```
 
 Then fire up Vim and you're good to go.
+

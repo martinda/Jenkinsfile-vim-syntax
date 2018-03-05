@@ -6,6 +6,8 @@ syn keyword jenkinsfileCoreStep node
 syn keyword jenkinsfileCoreStep scm
 syn keyword jenkinsfileCoreStep sh
 syn keyword jenkinsfileCoreStep stage
+syn keyword jenkinsfileCoreStep parallel
+syn keyword jenkinsfileCoreStep steps
 syn keyword jenkinsfileCoreStep step
 syn keyword jenkinsfileCoreStep tool
 

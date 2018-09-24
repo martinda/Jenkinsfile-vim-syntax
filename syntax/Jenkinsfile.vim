@@ -3,7 +3,7 @@ syn keyword jenkinsfileBuiltInVariable currentBuild
 
 syn keyword jenkinsfileSection pipeline agent stages steps
 
-syn keyword jenkinsfileDirective environment options parameters triggers stage tools input when
+syn keyword jenkinsfileDirective environment options parameters triggers stage tools input when libraries
 
 syn keyword jenkinsfileOption contained buildDiscarder disableConcurrentBuilds overrideIndexTriggers skipDefaultCheckout nextgroup=jenkinsfileOptionParams
 syn keyword jenkinsfileOption contained skipStagesAfterUnstable checkoutToSubdirectory timeout retry timestamps nextgroup=jenkinsfileOptionParams

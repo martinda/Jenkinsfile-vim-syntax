@@ -8,7 +8,7 @@ Simply recognises your project's `Jenkinsfile` as a [Groovy](http://groovy-lang.
 Installing the plugin's easy. First, make sure you've got [pathogen](https://github.com/tpope/vim-pathogen) installed. Then, just clone this repo:
 
 ```bash
-git clone git@github.com:martinda/Jenkinsfile-vim-syntax.git ~/.vim/bundle/Jenkinsfile-vim-syntax
+git clone https://github.com/martinda/Jenkinsfile-vim-syntax.git ~/.vim/bundle/Jenkinsfile-vim-syntax
 ```
 
 Then fire up Vim and you're good to go.

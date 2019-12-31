@@ -2,10 +2,13 @@
 A plugin that enables Jenkins DSL job syntax coloring + indentation.
 
 ## Under the hood
-Simply recognises your project's `Jenkinsfile` as a [Groovy](http://groovy-lang.org/) script. See [this Jenkins documentation](https://jenkins.io/doc/book/pipeline/jenkinsfile/) for details.
+Simply recognises your project's `Jenkinsfile` as a [Groovy](http://groovy-lang.org/) script.
+See [this Jenkins documentation](https://jenkins.io/doc/book/pipeline/jenkinsfile/) for details.
 
 ## Installation
-Installing the plugin's easy. First, make sure you've got [pathogen](https://github.com/tpope/vim-pathogen) installed. Then, just clone this repo:
+Installing the plugin's easy.
+First, make sure you've got [pathogen](https://github.com/tpope/vim-pathogen) installed.
+Then, just clone this repo:
 
 ```bash
 git clone https://github.com/martinda/Jenkinsfile-vim-syntax.git ~/.vim/bundle/Jenkinsfile-vim-syntax
@@ -13,4 +16,15 @@ git clone https://github.com/martinda/Jenkinsfile-vim-syntax.git ~/.vim/bundle/J
 
 Then fire up Vim and you're good to go.
 
-Alternatively, this is included in the [vim-polyglot package](https://github.com/sheerun/vim-polyglot), though polyglot may lag behind this repo by a version or two.
+Alternatively, this is included in the [vim-polyglot package](https://github.com/sheerun/vim-polyglot),
+though polyglot may lag behind this repo by a version or two.
+
+## Compatibility issues
+
+The `vim-polyglot` Groovy highlighting is broken and using it is not recommended.
+It has been found to cause issues with this plugin (see [13](https://github.com/martinda/Jenkinsfile-vim-syntax/issues/13)).
+
+If you use `vim-polyglot`, your options are:
+
+* Nuke `vim-polyglot` and install `Jenkinsfile-vim-syntax` directly. This will use Vim's the built-in Groovy highlighting and the issue disappears.
+* File an issue with `vim-polyglot`. It uses [vim-scripts/groovy.vim](https://github.com/vim-scripts/groovy.vim) from 2004 for Groovy highlighting.

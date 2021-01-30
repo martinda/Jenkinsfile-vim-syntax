@@ -1,9 +1,9 @@
 runtime syntax/groovy.vim
 syn keyword jenkinsfileBuiltInVariable currentBuild
 
-syn keyword jenkinsfileSection pipeline agent stages steps post
+syn keyword jenkinsfileSection pipeline agent matrix axes excludes stages post
 
-syn keyword jenkinsfileDirective environment options parameters triggers stage tools input when libraries
+syn keyword jenkinsfileDirective environment options triggers tools input when libraries exclude
 
 syn keyword jenkinsfileOption contained buildDiscarder disableConcurrentBuilds overrideIndexTriggers skipDefaultCheckout nextgroup=jenkinsfileOptionParams
 syn keyword jenkinsfileOption contained skipStagesAfterUnstable checkoutToSubdirectory timeout retry timestamps nextgroup=jenkinsfileOptionParams
@@ -11,11 +11,12 @@ syn keyword jenkinsfileOption contained disableResume newContainerPerStage prese
 syn region  jenkinsfileOptionParams contained start='(' end=')' transparent contains=@groovyTop
 syn match   jenkinsfileOptionO /[a-zA-Z]\+([^)]*)/ contains=jenkinsfileOption,jenkinsfileOptionParams transparent containedin=groovyParenT1
 
+syn keyword jenkinsfileCoreStep axis skipwhite nextgroup=jenkinsfileAxisConfigBlock
 syn keyword jenkinsfileCoreStep checkout
-syn keyword jenkinsfileCoreStep docker dockerfile skipwhite nextgroup=jenkinsFileDockerConfigBlock
+syn keyword jenkinsfileCoreStep docker dockerfile skipwhite nextgroup=jenkinsfileDockerConfigBlock
 syn keyword jenkinsfileCoreStep node
+syn keyword jenkinsfileCoreStep parameters skipwhite nextgroup=jenkinsfileParametersConfigBlock
 syn keyword jenkinsfileCoreStep scm
-syn keyword jenkinsfileCoreStep sh
 syn keyword jenkinsfileCoreStep stage
 syn keyword jenkinsfileCoreStep parallel
 syn keyword jenkinsfileCoreStep steps
@@ -25,8 +26,14 @@ syn keyword jenkinsfileCoreStep tool
 " TODO: These should probably be broken out.
 syn keyword jenkinsfileCoreStep always changed failure success unstable aborted unsuccessful regression fixed cleanup
 
-syn region  jenkinsFileDockerConfigBlock contained start='{' end='}' contains=groovyString,jenkinsfileDockerKeyword transparent
-syn keyword jenkinsFileDockerKeyword contained image args additionalBuildArgs label registryUrl registryCredentialsId alwaysPull filename dir
+syn region  jenkinsfileAxisConfigBlock contained start='{' end='}' contains=groovyString,groovyComment,groovyLineComment,jenkinsfileAxisKeyword transparent
+syn keyword jenkinsfileAxisKeyword contained name notValues values
+
+syn region  jenkinsfileDockerConfigBlock contained start='{' end='}' contains=groovyString,groovyComment,groovyLineComment,jenkinsfileDockerKeyword transparent
+syn keyword jenkinsfileDockerKeyword contained image args additionalBuildArgs label registryUrl registryCredentialsId reuseNode alwaysPull filename dir
+
+syn region  jenkinsfileParametersConfigBlock contained start='{' end='}' contains=groovyString,groovyComment,groovyLineComment,jenkinsfileParametersKeyword transparent
+syn keyword jenkinsfileParametersKeyword contained string text booleanParam choice password
 
 syn keyword jenkinsfilePipelineStep Applitools ArtifactoryGradleBuild Consul MavenDescriptorStep OneSky VersionNumber
 syn keyword jenkinsfilePipelineStep ViolationsToBitbucketServer ViolationsToGitHub ViolationsToGitLab _OcAction _OcContextInit
@@ -76,7 +83,7 @@ syn keyword jenkinsfilePipelineStep klocworkQualityGateway klocworkWrapper kuber
 syn keyword jenkinsfilePipelineStep library libraryResource liquibaseDbDoc liquibaseRollback liquibaseUpdate listAWSAccounts
 syn keyword jenkinsfilePipelineStep livingDocs loadRunnerTest lock logstashSend mail marathon mattermostSend memoryMap
 syn keyword jenkinsfilePipelineStep milestone mockLoad newArtifactoryServer newBuildInfo newGradleBuild newMavenBuild
-syn keyword jenkinsfilePipelineStep nexusArtifactUploader nexusPolicyEvaluation nexusPublisher node nodejs nodesByLabel
+syn keyword jenkinsfilePipelineStep nexusArtifactUploader nexusPolicyEvaluation nexusPublisher nodejs nodesByLabel
 syn keyword jenkinsfilePipelineStep notifyBitbucket notifyDeploymon notifyOTC nunit nvm octoPerfTest office365ConnectorSend
 syn keyword jenkinsfilePipelineStep openTasks openshiftBuild openshiftCreateResource openshiftDeleteResourceByJsonYaml
 syn keyword jenkinsfilePipelineStep openshiftDeleteResourceByKey openshiftDeleteResourceByLabels openshiftDeploy openshiftExec
@@ -98,12 +105,12 @@ syn keyword jenkinsfilePipelineStep serviceNow_attachFile serviceNow_attachZip s
 syn keyword jenkinsfilePipelineStep serviceNow_getChangeState serviceNow_updateChangeItem setAccountAlias setGerritReview
 syn keyword jenkinsfilePipelineStep setGitHubPullRequestStatus sh sha1 signAndroidApks silkcentral silkcentralCollectResults
 syn keyword jenkinsfilePipelineStep slackSend sleep sloccountPublish snsPublish snykSecurity sonarToGerrit sparkSend
-syn keyword jenkinsfilePipelineStep splitTests springBoot sscm sseBuild sseBuildAndPublish sshPublisher sshagent stage
-syn keyword jenkinsfilePipelineStep startET startSandbox startSession startTS stash step stepcounter stopET stopSandbox
+syn keyword jenkinsfilePipelineStep splitTests springBoot sscm sseBuild sseBuildAndPublish sshPublisher sshagent
+syn keyword jenkinsfilePipelineStep startET startSandbox startSession startTS stash stepcounter stopET stopSandbox
 syn keyword jenkinsfilePipelineStep stopSession stopTS submitJUnitTestResultsToqTest submitModuleBuildRequest svChangeModeStep
 syn keyword jenkinsfilePipelineStep svDeployStep svExportStep svUndeployStep svn tagImage task teamconcert tee testFolder
 syn keyword jenkinsfilePipelineStep testPackage testProject testiniumExecution themisRefresh themisReport throttle time
-syn keyword jenkinsfilePipelineStep timeout timestamps tm tool touch triggerInputStep triggerJob typetalkSend uftScenarioLoad
+syn keyword jenkinsfilePipelineStep timeout timestamps tm touch triggerInputStep triggerJob typetalkSend uftScenarioLoad
 syn keyword jenkinsfilePipelineStep unarchive unstash unzip updateBotPush updateGitlabCommitStatus updateIdP updateTrustPolicy
 syn keyword jenkinsfilePipelineStep upload-pgyer uploadProgetPackage uploadToIncappticConnect vSphere validateDeclarativePipeline
 syn keyword jenkinsfilePipelineStep vmanagerLaunch waitForCIMessage waitForJob waitForQualityGate waitForWebhook waitUntil
@@ -120,7 +127,9 @@ hi link jenkinsfileOption            Function
 hi link jenkinsfileCoreStep          Function
 hi link jenkinsfilePipelineStep      Include
 hi link jenkinsfileBuiltInVariable   Identifier
-hi link jenkinsFileDockerKeyword     jenkinsfilePipelineStep
+hi link jenkinsfileAxisKeyword       jenkinsfilePipelineStep
+hi link jenkinsfileDockerKeyword     jenkinsfilePipelineStep
+hi link jenkinsfileParametersKeyword jenkinsfilePipelineStep
 
 let b:current_syntax = 'Jenkinsfile'
 

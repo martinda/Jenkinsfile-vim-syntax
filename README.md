@@ -16,5 +16,12 @@ git clone https://github.com/martinda/Jenkinsfile-vim-syntax.git ~/.vim/bundle/J
 
 Then fire up Vim and you're good to go.
 
+This repo also supports native vim packages for supported versions of vim. Clone
+the repo to your ~/.vim/pack directory
+
+```bash
+git clone https://github.com/martinda/Jenkinsfile-vim-syntax.git ~/.vim/pack/Jenkinsfile-vim-syntax
+```
+
 Alternatively, this is included in the [vim-polyglot package](https://github.com/sheerun/vim-polyglot),
 though polyglot may lag behind this repo by a version or two.
